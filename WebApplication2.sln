@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 		.editorconfig = .editorconfig
 		nuget.config = nuget.config
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{29D46257-73C8-4FD6-9727-3BB3B664A7DE}"
@@ -21,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "git", "git", "{2BF40238-F0A
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LucyNumbers", "LucyNumbers\LucyNumbers.csproj", "{04EE75BE-D414-4A35-89B4-F2A3762A91AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +35,10 @@ Global
 		{9A525DDA-186D-415E-A25E-DC2781A483CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A525DDA-186D-415E-A25E-DC2781A483CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A525DDA-186D-415E-A25E-DC2781A483CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04EE75BE-D414-4A35-89B4-F2A3762A91AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04EE75BE-D414-4A35-89B4-F2A3762A91AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04EE75BE-D414-4A35-89B4-F2A3762A91AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04EE75BE-D414-4A35-89B4-F2A3762A91AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{29D46257-73C8-4FD6-9727-3BB3B664A7DE} = {F8E1EBE4-5EDA-4F77-A885-F8EA889E1A03}
