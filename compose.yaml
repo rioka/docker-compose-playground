@@ -4,10 +4,14 @@ services:
   webapp2:
     network_mode: "bridge"
     container_name: webapp2
+    hostname: webapp2
     env_file:
       - ./docker.env
     ports:
-      - "45678:8080"
+      - "45678:8080"  # http
+      - "44330:4433"  # https
+    volumes:
+      - ~/.aspnet/https:/https:ro
     build:
       context: ./
       dockerfile: ./WebApplication2/Dockerfile
