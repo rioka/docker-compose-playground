@@ -40,16 +40,19 @@ public class Program
         [FromServices] IConfiguration configuration, 
         HttpContext httpContext, 
         [FromServices] IHttpClientFactory factory)=> {
+        
         var forecast = Enumerable.Range(1, 5).Select(index => new WeatherForecast {
             Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
             TemperatureC = Random.Shared.Next(-20, 55),
             Summary = summaries[Random.Shared.Next(summaries.Length)]
           })
           .ToArray();
+        
         var client = factory.CreateClient("lucky");
         client.BaseAddress = new Uri(configuration.GetSection("LuckyNumbers")["Host"]!);
         var numberResponse = await client.GetAsync("luckynumber");
         var number = await numberResponse.Content.ReadAsStringAsync();
+        
         return new { forecast, number };
       })
       .WithName("GetWeatherForecast")
