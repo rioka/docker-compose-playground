@@ -1,0 +1,16 @@
+version: '3'
+
+services: 
+  webapp2:
+    network_mode: "bridge"
+    container_name: webapp2
+    env_file:
+      - ./docker.env
+    ports:
+      - "45678:8080"
+    build:
+      context: ./
+      dockerfile: ./WebApplication2/Dockerfile
+      args:
+        BUILD_CONFIGURATION: Release
+    image: local/webapp2
