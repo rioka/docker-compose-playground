@@ -8,6 +8,8 @@ public class Program
   {
     var builder = WebApplication.CreateBuilder(args);
 
+    builder.Configuration.AddEnvironmentVariables("WEBAPP2_");
+    
     // Add services to the container.
     builder.Services.AddAuthorization();
 
