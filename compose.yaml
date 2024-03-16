@@ -18,3 +18,21 @@ services:
       args:
         BUILD_CONFIGURATION: Release
     image: local/webapp2
+
+  luckynumbers:
+    network_mode: "bridge"
+    container_name: luckynumbers
+    hostname: luckynumbers
+    env_file:
+      - ./docker.env
+    ports:
+      - "45679:8080"  # http
+      - "44331:4433"  # https
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    build:
+      context: ./
+      dockerfile: ./LucyNumbers/Dockerfile
+      args:
+        BUILD_CONFIGURATION: Release
+    image: local/luckynumbers
