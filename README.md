@@ -67,6 +67,7 @@ Update compose file and add variables so that our application can use the certif
   volumes:
   - ~/.aspnet/https:/https:ro
   ```
+ 
 - Add environment variables
 
   ```console
@@ -84,3 +85,5 @@ Update compose file and add variables so that our application can use the certif
 - https://stackoverflow.com/questions/61197086/unable-to-configure-asp-net-https-endpoint-in-linux-docker-on-windows
 - https://learn.microsoft.com/en-us/aspnet/core/security/docker-https?view=aspnetcore-8.0#running-pre-built-container-images-with-https
 - https://github.com/dotnet/dotnet-docker/blob/main/samples/run-aspnetcore-https-development.md
+- [Why is Firefox not trusting my self-signed certificate?](https://stackoverflow.com/a/77009337)
+- [Develop Locally with HTTPS, Self-Signed Certificates and ASP.NET Core](https://www.humankode.com/asp-net-core/develop-locally-with-https-self-signed-certificates-and-asp-net-core/)
