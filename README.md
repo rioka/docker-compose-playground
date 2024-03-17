@@ -1,17 +1,53 @@
-# WebApp Sample - Playing with `docker compose` 
+# Playing with `docker compose` 
 
-> Currently does not support HTTPS when running in docker
+Sample solution to play with `docker compose`, consisting of
+
+- A web API application `WeatherForecast`
+- Another web API application `LuckyNumbers`
+- SQL Server 2019
+
+## System diagram
+
+```puml
+participant Client as C
+participant WeatherForecast as WF
+participant LuckyNumbers as LN
+database SQL
+C -> WF : ""GET /weatherforecast""
+WF --> LN : ""GET /luckynumber""
+LN ---> WF : return **//lucky//** number
+WF --> SQL : Retrieve some data
+SQL ---> WF : return some data
+WF ---> C : return ""(forecast, number, sqldata)""
+```
+
+```puml
+actor Client as C
+component WeatherForecast as WF
+component LuckyNumbers as LN
+database SQL
+
+C -down[#blue]-> WF : (1) REST request
+
+WF -down[dashed,#green]-> LN : (2) Collect other data
+WF -right[dashed,#green]-> SQL : (3) Collect other data
+
+LN -[dashed,#magenta]-> WF : (2) Return data
+SQL -[dashed,#magenta]-> WF : (3) Return data
+
+WF -[#blue]> C : (4) REST response
+```
 
 ## Build the image
 
 ```bash
-docker build -t spot/webapp2 -f .\WebApplication2\Dockerfile .  
+docker build -t spot/forecast -f .\WeatherForecast\Dockerfile .  
 ```
 
 ## Run in container
 
 ```bash
-docker run --rm -d --name webapp2 -p 45678:8080 spot/webapp2
+docker run --rm -d --name forecast -p 45678:8080 spot/forecast
 ```
 
 > Port `8080` is configured in the base image, via `ASPNETCORE_HTTP_PORTS`.
@@ -21,7 +57,7 @@ docker run --rm -d --name webapp2 -p 45678:8080 spot/webapp2
 ## Run in container with HTTPS
 
 ```bash
-docker run -d --name webapp2 -e "ASPNETCORE_HTTPS_PORTS=4433" -p 45678:8080 -p 54333:4433 spot/webapp2
+docker run -d --name forecast -e "ASPNETCORE_HTTPS_PORTS=4433" -p 45678:8080 -p 54333:4433 spot/forecast
 ```
 
 > Currently throws because no certificate exists
@@ -78,6 +114,18 @@ Update compose file and add variables so that our application can use the certif
   # use mapped path
   ASPNETCORE_Kestrel__Certificates__Default__Path=/https/webapp2.pfx
   ```
+
+## Using `docker-compose`
+
+There are two versions
+
+- `compose.yaml` sets network mode to `bridge` : services are available to the host via published ports in the host, and internally via containers' hostnames and exposed ports
+
+  - Run `docker compose -f compose.yaml build` to build images
+
+  - Run `docker compose -f compose.yaml up -d` to start containers
+
+- `compose-hostmode.yaml` sets network mode to `host`: containers do not have their own IP address, and the ports each container binds to are available on the host's IP address. 
 
 ## Now so obvious things
 
