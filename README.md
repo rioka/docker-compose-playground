@@ -79,6 +79,20 @@ Update compose file and add variables so that our application can use the certif
   ASPNETCORE_Kestrel__Certificates__Default__Path=/https/webapp2.pfx
   ```
 
+## Now so obvious things
+
+- To use hostname in container-to-container communication, `network_mode` cannot be set to `bridge`.
+- On the other hand, when `network_mode` is set to `bridge`, a container cannot reach the host
+- Moreover, when `network_mode` is set to `host`, ports are not mapped:
+
+  > Given that the container does not have its own IP-address when using host mode networking, port-mapping does not take effect, and the `-p`, `--publish`, `-P`, and `--publish-all` option are ignored.
+  
+  But
+
+  > [...] if you run a container which binds to port 80 and you use host networking, the container’s application is available on port 80 on the host’s IP address. 
+
+  [Source](https://docker-docs.uclv.cu/network/host/)
+
 ## Tutorials
 
 - [Hosting ASP.NET Core images with Docker Compose over HTTPS](https://learn.microsoft.com/en-us/aspnet/core/security/docker-compose-https?view=aspnetcore-8.0)
