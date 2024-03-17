@@ -1,0 +1,36 @@
+version: '3'
+
+services: 
+  webapp2:
+    network_mode: "host"
+    container_name: webapp2
+    hostname: webapp2
+    environment:
+      - "ASPNETCORE_URLS=https://+:44330"
+    env_file:
+      - ./docker-hostmode.env
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    build:
+      context: ./
+      dockerfile: ./WebApplication2/Dockerfile
+      args:
+        BUILD_CONFIGURATION: Release
+    image: local/webapp2
+
+  luckynumbers:
+    network_mode: "host"
+    container_name: luckynumbers
+    hostname: luckynumbers
+    environment:
+      - "ASPNETCORE_URLS=https://+:44331"
+    env_file:
+      - ./docker-hostmode.env
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    build:
+      context: ./
+      dockerfile: ./LucyNumbers/Dockerfile
+      args:
+        BUILD_CONFIGURATION: Release
+    image: local/luckynumbers
