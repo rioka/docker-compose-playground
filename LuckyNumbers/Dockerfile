@@ -11,7 +11,7 @@ COPY ["LuckyNumbers/LuckyNumbers.csproj", "LuckyNumbers/"]
 COPY ["Directory.Build.props", "Directory.Packages.props", "nuget.config", "./"]
 
 RUN dotnet restore "LuckyNumbers/LuckyNumbers.csproj"
-COPY . .
+COPY ./LuckyNumbers ./LuckyNumbers
 WORKDIR "/src/LuckyNumbers"
 RUN dotnet build "LuckyNumbers.csproj" -c $BUILD_CONFIGURATION -o /app/build
 

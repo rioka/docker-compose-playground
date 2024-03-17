@@ -10,7 +10,7 @@ WORKDIR /src
 COPY ["WeatherForecast/WeatherForecast.csproj", "WeatherForecast/"]
 COPY ["Directory.Build.props", "Directory.Packages.props", "nuget.config", "./"]
 RUN dotnet restore "WeatherForecast/WeatherForecast.csproj"
-COPY . .
+COPY ./WeatherForecast ./WeatherForecast
 WORKDIR "/src/WeatherForecast"
 RUN dotnet build "WeatherForecast.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
