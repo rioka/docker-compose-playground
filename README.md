@@ -71,7 +71,7 @@ docker run -d --name forecast -e "ASPNETCORE_HTTPS_PORTS=4433" -p 45678:8080 -p 
 First, create or export an existing self-signed development certificate:
 
 ```powershell
-dotnet dev-certs https -ep "$env:USERPROFILE\.aspnet\https\webapp2.pfx"  -p latoccopiano -v
+dotnet dev-certs https -ep "$env:USERPROFILE\.aspnet\https\webapp2.pfx" -p latoccopiano -v
 ```
 
 > In Linux, run
@@ -121,7 +121,13 @@ Update compose file and add variables so that our application can use the certif
 
 ## Using `docker-compose`
 
-There are two versions
+> Set environment variable `CERTIFICATE_PASSWORD` (referenced in `docker.env`); for example, in powershell:
+> 
+> ```powershell
+> $env:CERTIFICATE_PASSWORD="Some-strong-Password_123"
+> ``` 
+
+There are two versions:
 
 - `compose.yaml` sets network mode to `bridge` : services are available to the host via published ports in the host, and internally via containers' hostnames and exposed ports
 
