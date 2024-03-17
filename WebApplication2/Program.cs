@@ -1,4 +1,6 @@
+using Dapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 
 namespace WebApplication2;
 
@@ -24,6 +26,12 @@ public class Program
       });
     }
 
+    builder.Services.AddScoped<SqlConnection>(sp => {
+      var config = sp.GetRequiredService<IConfiguration>();
+
+      return new SqlConnection(config.GetConnectionString("WebApp")!);
+    });
+
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
@@ -46,8 +54,8 @@ public class Program
     };
 
     app.MapGet("/weatherforecast",  async (
-        [FromServices] IConfiguration configuration, 
         HttpContext httpContext, 
+        [FromServices] SqlConnection connection,
         [FromServices] IHttpClientFactory factory)=> {
         
         var forecast = Enumerable.Range(1, 5).Select(index => new WeatherForecast {
@@ -58,11 +66,15 @@ public class Program
           .ToArray();
         
         var client = factory.CreateClient("lucky");
-        // client.BaseAddress = new Uri(configuration.GetSection("LuckyNumbers")["Host"]!);
         var numberResponse = await client.GetAsync("luckynumber");
-        var number = await numberResponse.Content.ReadAsStringAsync();
+        var number = 0;
+        int.TryParse(await numberResponse.Content.ReadAsStringAsync(), out number);
+
+        var sqlInfo = (await connection.ExecuteScalarAsync<string>("Select @@version"))
+          .Replace("\t", string.Empty)
+          .Split("\n");
         
-        return new { forecast, number };
+        return new { forecast, number, sqlInfo };
       })
       .WithName("GetWeatherForecast")
       .WithOpenApi();

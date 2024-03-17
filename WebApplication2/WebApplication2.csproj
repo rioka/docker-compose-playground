@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Microsoft.Data.SqlClient" />
     <PackageReference Include="Swashbuckle.AspNetCore" />
   </ItemGroup>
 
