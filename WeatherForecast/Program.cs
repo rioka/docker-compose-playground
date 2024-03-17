@@ -2,7 +2,7 @@ using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 
-namespace WebApplication2;
+namespace WeatherForecast;
 
 public class Program
 {
@@ -10,7 +10,7 @@ public class Program
   {
     var builder = WebApplication.CreateBuilder(args);
 
-    builder.Configuration.AddEnvironmentVariables("WEBAPP2_");
+    builder.Configuration.AddEnvironmentVariables("WF_");
     
     // Add services to the container.
     builder.Services.AddAuthorization();
@@ -29,7 +29,7 @@ public class Program
     builder.Services.AddScoped<SqlConnection>(sp => {
       var config = sp.GetRequiredService<IConfiguration>();
 
-      return new SqlConnection(config.GetConnectionString("WebApp")!);
+      return new SqlConnection(config.GetConnectionString("Main")!);
     });
 
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

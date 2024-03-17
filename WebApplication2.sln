@@ -1,7 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication2", "WebApplication2\WebApplication2.csproj", "{9A525DDA-186D-415E-A25E-DC2781A483CC}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F8E1EBE4-5EDA-4F77-A885-F8EA889E1A03}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
@@ -27,20 +25,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "git", "git", "{2BF40238-F0A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LucyNumbers", "LucyNumbers\LucyNumbers.csproj", "{04EE75BE-D414-4A35-89B4-F2A3762A91AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecast", "WeatherForecast\WeatherForecast.csproj", "{F66F83D4-7565-44C7-9117-3FBAC08FDC89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9A525DDA-186D-415E-A25E-DC2781A483CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9A525DDA-186D-415E-A25E-DC2781A483CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9A525DDA-186D-415E-A25E-DC2781A483CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9A525DDA-186D-415E-A25E-DC2781A483CC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{04EE75BE-D414-4A35-89B4-F2A3762A91AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{04EE75BE-D414-4A35-89B4-F2A3762A91AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04EE75BE-D414-4A35-89B4-F2A3762A91AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04EE75BE-D414-4A35-89B4-F2A3762A91AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F66F83D4-7565-44C7-9117-3FBAC08FDC89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F66F83D4-7565-44C7-9117-3FBAC08FDC89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F66F83D4-7565-44C7-9117-3FBAC08FDC89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F66F83D4-7565-44C7-9117-3FBAC08FDC89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{29D46257-73C8-4FD6-9727-3BB3B664A7DE} = {F8E1EBE4-5EDA-4F77-A885-F8EA889E1A03}
