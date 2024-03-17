@@ -12,8 +12,17 @@ public class Program
     
     // Add services to the container.
     builder.Services.AddAuthorization();
-
-    builder.Services.AddHttpClient();
+    var luckyNumberConfig = builder.Configuration.GetSection("LuckyNumbers");
+    // builder.Services.AddHttpClient();
+    var httpBuilder =  builder.Services.AddHttpClient("lucky", client => {
+        client.BaseAddress = new Uri(luckyNumberConfig["Host"]!);
+      });
+    if (bool.TryParse(luckyNumberConfig["BypassCertificateVerification"], out var bypass) && bypass)
+    {
+      httpBuilder.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler() {
+        ServerCertificateCustomValidationCallback = (message, certificate, chain, errors) => true  
+      });
+    }
 
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
@@ -49,7 +58,7 @@ public class Program
           .ToArray();
         
         var client = factory.CreateClient("lucky");
-        client.BaseAddress = new Uri(configuration.GetSection("LuckyNumbers")["Host"]!);
+        // client.BaseAddress = new Uri(configuration.GetSection("LuckyNumbers")["Host"]!);
         var numberResponse = await client.GetAsync("luckynumber");
         var number = await numberResponse.Content.ReadAsStringAsync();
         
