@@ -34,3 +34,12 @@ services:
       args:
         BUILD_CONFIGURATION: Release
     image: local/luckynumbers
+
+  sql:
+    network_mode: "host"
+    container_name: sql
+    hostname: sql
+    environment:
+      ACCEPT_EULA: 'Y'
+      MSSQL_SA_PASSWORD: 'TtprstF68'
+    image: mcr.microsoft.com/mssql/server:2019-latest
