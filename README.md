@@ -1,5 +1,9 @@
 # Playing with `docker compose` 
 
+> ⚠️ **Disclaimer** 📢
+>
+> This is based on what I have understood so far: I do not expect it to be _necessarily_ technically accurate 😎, although I hope I'm not **blatantly** wrong 😉.
+
 Sample solution to play with `docker compose`, consisting of
 
 - A web API application `WeatherForecast`
