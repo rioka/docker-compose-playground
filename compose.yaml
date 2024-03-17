@@ -1,12 +1,12 @@
 version: '3'
 
 services:
-  webapp2:
+  forecasts:
     # using bridge mode, but with custom network, created by docker compose
     # so that we can use hostnames for container-to-container communication    
     #network_mode: "bridge"
-    container_name: webapp2
-    hostname: webapp2
+    container_name: forecasts
+    hostname: forecasts
     env_file:
       - ./docker.env
     ports:
@@ -16,10 +16,10 @@ services:
       - ~/.aspnet/https:/https:ro
     build:
       context: ./
-      dockerfile: ./WebApplication2/Dockerfile
+      dockerfile: ./WeatherForecast/Dockerfile
       args:
         BUILD_CONFIGURATION: Release
-    image: local/webapp2
+    image: local/forecasts
 
   luckynumbers:
     #network_mode: "bridge"
