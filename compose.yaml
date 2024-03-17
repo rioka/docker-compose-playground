@@ -2,7 +2,7 @@ version: '3'
 
 services: 
   webapp2:
-    network_mode: "bridge"
+    #network_mode: "bridge"
     container_name: webapp2
     hostname: webapp2
     env_file:
@@ -20,7 +20,7 @@ services:
     image: local/webapp2
 
   luckynumbers:
-    network_mode: "bridge"
+    #network_mode: "bridge"
     container_name: luckynumbers
     hostname: luckynumbers
     env_file:
