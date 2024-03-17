@@ -1,7 +1,9 @@
 version: '3'
 
-services: 
+services:
   webapp2:
+    # using bridge mode, but with custom network, created by docker compose
+    # so that we can use hostnames for container-to-container communication    
     #network_mode: "bridge"
     container_name: webapp2
     hostname: webapp2

@@ -81,7 +81,7 @@ Update compose file and add variables so that our application can use the certif
 
 ## Now so obvious things
 
-- To use hostname in container-to-container communication, `network_mode` cannot be set to `bridge`.
+- To use hostnames in container-to-container communication, `network_mode` cannot be set to `bridge`.
 - On the other hand, when `network_mode` is set to `bridge`, a container cannot reach the host
 - Moreover, when `network_mode` is set to `host`, ports are not mapped:
 
@@ -93,7 +93,62 @@ Update compose file and add variables so that our application can use the certif
 
   [Source](https://docker-docs.uclv.cu/network/host/)
 
-## Tutorials
+## Networking
+
+> Containers have networking enabled by default, and they can make outgoing connections. A container has no information about what kind of network it's attached to, or whether their peers are also Docker workloads or not. A container only sees a network interface with an IP address, a gateway, a routing table, DNS services, and other networking details. That is, unless the container uses the `none` network driver.
+
+From [Networking overview](https://docs.docker.com/network/) 
+
+We're experimenting with two different network mode:
+
+- "default" mode
+- "host" mode
+
+When using "default" mode, i.e. not setting `network_mode` explicitly, and then you inspect the container:
+
+- network mode is set to "bridge" (see `HostConfig:NetworkMode`)
+- bridge is not given a name (see `NetworkSettings:Bridge`)
+- a new network is created, named after the project (see entry in `NetworkSettings:Networks`)
+
+  The project is named based on `name` property in the compose file, or the name of the folder if `name` is not set)
+ 
+  > In Compose, the default project name is derived from the base name of the project directory. However, you have the flexibility to set a custom project name.
+
+  [Source](https://docs.docker.com/compose/project-name/) 
+
+  Moreover:
+  
+  > Your app's network is given a name based on the "project name", which is based on the name of the directory it lives in. You can override the project name with either the `--project-name` flag or the `COMPOSE_PROJECT_NAME` environment variable. [...] 
+  >
+  > When you run docker compose up, the following happens:
+  > 
+  > 1. A network called `<myapp>_default` is created.
+  >
+  > [...] 
+  >
+  > Each container can now look up the service name web or db and get back the appropriate container's IP address. [...]
+  > 
+  > Networked service-to-service communication uses the `CONTAINER_PORT`. When `HOST_PORT` is defined, the service is accessible outside the swarm as well. 
+
+  [Source](https://docs.docker.com/compose/networking/)
+  
+  > There are **two** `NetworkSettings` element when inspecting the container, with partially different content, not sure how / why...
+  >
+  > The only difference are (**apparently**) `NetworkSettings:Ports` and `NetworkSettings:PortMapping`, but these differences are not important (AFAICS: just a different order for properties) 
+
+There are some important differences between used-defined bridges and the default bridge:
+
+- > User-defined bridges provide automatic DNS resolution between containers.
+  
+  This explains why setting `network_mode` to bridge prevents using container hostnames in container-to-container communication.
+
+- > The default bridge network is considered a legacy detail of Docker and is not recommended for production use. Configuring it is a manual operation, and it has technical shortcomings.
+  >
+  > [...] Containers connected to the default `bridge` network can communicate, but only by IP address, unless they are linked using the legacy `--link` flag. 
+
+Other differences available at [Differences between user-defined bridges and the default bridge](https://docker-docs.uclv.cu/network/bridge/#differences-between-user-defined-bridges-and-the-default-bridge).  
+
+## References
 
 - [Hosting ASP.NET Core images with Docker Compose over HTTPS](https://learn.microsoft.com/en-us/aspnet/core/security/docker-compose-https?view=aspnetcore-8.0)
 - https://stackoverflow.com/questions/61197086/unable-to-configure-asp-net-https-endpoint-in-linux-docker-on-windows
@@ -101,3 +156,8 @@ Update compose file and add variables so that our application can use the certif
 - https://github.com/dotnet/dotnet-docker/blob/main/samples/run-aspnetcore-https-development.md
 - [Why is Firefox not trusting my self-signed certificate?](https://stackoverflow.com/a/77009337)
 - [Develop Locally with HTTPS, Self-Signed Certificates and ASP.NET Core](https://www.humankode.com/asp-net-core/develop-locally-with-https-self-signed-certificates-and-asp-net-core/)
+- [Docker Networking – Basics, Network Types & Examples](https://spacelift.io/blog/docker-networking)
+- [Specify a project name](https://docs.docker.com/compose/project-name/)
+- [Version and name top-level elements](https://docs.docker.com/compose/compose-file/04-version-and-name/#name-top-level-element)
+- [Differences between user-defined bridges and the default bridge](https://docker-docs.uclv.cu/network/bridge/#differences-between-user-defined-bridges-and-the-default-bridge)
+- [Networking with standalone containers](https://docs.docker.com/network/network-tutorial-standalone/)
