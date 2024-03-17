@@ -23,9 +23,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "git", "git", "{2BF40238-F0A
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LucyNumbers", "LucyNumbers\LucyNumbers.csproj", "{04EE75BE-D414-4A35-89B4-F2A3762A91AE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecast", "WeatherForecast\WeatherForecast.csproj", "{F66F83D4-7565-44C7-9117-3FBAC08FDC89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuckyNumbers", "LuckyNumbers\LuckyNumbers.csproj", "{F7E346FB-5D1D-4DA6-B086-74CB7FECAB16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,14 +33,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{04EE75BE-D414-4A35-89B4-F2A3762A91AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{04EE75BE-D414-4A35-89B4-F2A3762A91AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{04EE75BE-D414-4A35-89B4-F2A3762A91AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{04EE75BE-D414-4A35-89B4-F2A3762A91AE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F66F83D4-7565-44C7-9117-3FBAC08FDC89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F66F83D4-7565-44C7-9117-3FBAC08FDC89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F66F83D4-7565-44C7-9117-3FBAC08FDC89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F66F83D4-7565-44C7-9117-3FBAC08FDC89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7E346FB-5D1D-4DA6-B086-74CB7FECAB16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7E346FB-5D1D-4DA6-B086-74CB7FECAB16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7E346FB-5D1D-4DA6-B086-74CB7FECAB16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7E346FB-5D1D-4DA6-B086-74CB7FECAB16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{29D46257-73C8-4FD6-9727-3BB3B664A7DE} = {F8E1EBE4-5EDA-4F77-A885-F8EA889E1A03}

@@ -30,7 +30,7 @@ services:
       - ~/.aspnet/https:/https:ro
     build:
       context: ./
-      dockerfile: ./LucyNumbers/Dockerfile
+      dockerfile: ./LuckyNumbers/Dockerfile
       args:
         BUILD_CONFIGURATION: Release
     image: local/luckynumbers

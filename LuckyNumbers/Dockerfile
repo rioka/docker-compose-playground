@@ -7,19 +7,19 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["LucyNumbers/LucyNumbers.csproj", "LucyNumbers/"]
+COPY ["LuckyNumbers/LuckyNumbers.csproj", "LuckyNumbers/"]
 COPY ["Directory.Build.props", "Directory.Packages.props", "nuget.config", "./"]
 
-RUN dotnet restore "LucyNumbers/LucyNumbers.csproj"
+RUN dotnet restore "LuckyNumbers/LuckyNumbers.csproj"
 COPY . .
-WORKDIR "/src/LucyNumbers"
-RUN dotnet build "LucyNumbers.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/LuckyNumbers"
+RUN dotnet build "LuckyNumbers.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "LucyNumbers.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "LuckyNumbers.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "LucyNumbers.dll"]
+ENTRYPOINT ["dotnet", "LuckyNumbers.dll"]

@@ -1,4 +1,4 @@
-namespace LucyNumbers;
+namespace LuckyNumbers;
 
 public class Program
 {
