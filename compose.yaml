@@ -40,11 +40,17 @@ services:
     image: local/luckynumbers
 
   sql:
+    secrets:
+      - sql_sa_pw
     container_name: sql
     hostname: sql
     environment:
       ACCEPT_EULA: 'Y'
-      MSSQL_SA_PASSWORD: '${MSSQL_SA_PASSWORD}'
+      MSSQL_SA_PASSWORD_FILE: /run/secrets/sql_sa_pw
     ports:
       - "14330:1433"
     image: mcr.microsoft.com/mssql/server:2019-latest
+
+secrets:
+  sql_sa_pw:
+    file: ./sql_sa_pw

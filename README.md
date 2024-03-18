@@ -207,6 +207,66 @@ There are some important differences between used-defined bridges and the defaul
 
 Other differences available at [Differences between user-defined bridges and the default bridge](https://docker-docs.uclv.cu/network/bridge/#differences-between-user-defined-bridges-and-the-default-bridge).  
 
+## Secrets
+
+> The Docker CLI has a batch of secret management commands but these only work with Swarm clusters. You can't add secrets to standalone containers using the Docker CLI alone.
+>
+> Docker Compose added "fake" secrets to bring these capabilities to workloads without a cluster. Compose's implementation functions similarly to the Docker Swarm features and works with any Compose file.
+>
+> Secrets are created as regular text files which are bind mounted into your containers. Your application accesses the secret's value by reading the file's contents.
+
+Moreover
+
+> The source of the secret is either file or environment.
+
+[Source](https://docs.docker.com/compose/compose-file/09-secrets/)
+
+You can then reference secrets in your compose file using `/run/secrets/secred_id`
+
+### An example
+
+```yaml
+services:
+  myapp:
+    image: myapp:latest
+    secrets:
+      - my_secret
+# ...
+secrets:
+  my_secret:
+    file: ./my_secret.txt
+```    
+
+In this snippet, `myapp` is given access to secret `my_secret`; this secret is then defined in the top-level `secrets` section, and its content is taken from file `./my_secret.txt`.
+
+In our case, use can use `MSSQL_SA_PASSWORD_FILE` instead of `MSSQL_SA_PASSWORD`, i.e.
+
+```yaml
+  sql:
+    secrets:
+      - sql_sa_pw
+    #...
+    environment:
+      #...
+      MSSQL_SA_PASSWORD_FILE: /run/secrets/sql_sa_pw
+
+#...
+secrets:
+  sql_sa_pw:
+    file: ./sql_sa_pw
+    # or set the name of an environment variable in the docker host 
+    # to get the value from, e.g.
+    # environment: "MSSQL_SA_PASSWORD"
+```
+
+This works, but 
+
+- For the first option (`file`), `MSSQL_SA_PASSWORD_FILE` is not officially documented (although there's an [issue i Github](https://github.com/microsoft/mssql-docker/issues/672)), so I prefer keep using the "traditional" approach, at least until it is documented.
+
+- For the second option, we still have to define an environment variable, so except than from a security standpoint, it's quite the same.
+
+ > This is not to say security is not important, but given that this ins intended to be used in development environments, the only advantage you get (the password is not visible as an environment variable in the container) is not worth the additional effort IMHO.
+
 ## References
 
 - [Hosting ASP.NET Core images with Docker Compose over HTTPS](https://learn.microsoft.com/en-us/aspnet/core/security/docker-compose-https?view=aspnetcore-8.0)
@@ -220,3 +280,17 @@ Other differences available at [Differences between user-defined bridges and the
 - [Version and name top-level elements](https://docs.docker.com/compose/compose-file/04-version-and-name/#name-top-level-element)
 - [Differences between user-defined bridges and the default bridge](https://docker-docs.uclv.cu/network/bridge/#differences-between-user-defined-bridges-and-the-default-bridge)
 - [Networking with standalone containers](https://docs.docker.com/network/network-tutorial-standalone/)
+- [How to Secure Sensitive Data With Docker Compose Secrets](https://www.howtogeek.com/devops/how-to-secure-sensitive-data-with-docker-compose-secrets/)
+- [Should we update a document of SQL Server for Linux Docker to have MSSQL_SA_PASSWORD_FILE variable?](https://github.com/microsoft/mssql-docker/issues/672)
+- [Using dotnet dev-certs with aspnet docker image](https://stackoverflow.com/a/76165591)
+
+  Alternative approach: generate the certificate as part of the build process, e.g.
+
+  ```Dockerfile
+  # ...
+  # generate the cert, define the path to store it and password to use
+  RUN dotnet dev-certs https -ep /https/aspnetapp.pfx -p ${PASSWORD_ENV_SEEDED}
+
+  # then in final stage
+  FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS final
+  ```
