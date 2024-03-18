@@ -6,6 +6,7 @@ services:
     # so that we can use hostnames for container-to-container communication    
     #network_mode: "bridge"
     container_name: forecasts
+    domainname: bitdeas.local # does not work
     hostname: forecasts
     env_file:
       - ./docker.env
@@ -24,6 +25,7 @@ services:
   luckynumbers:
     #network_mode: "bridge"
     container_name: luckynumbers
+    domainname: bitdeas.local # does not work
     hostname: luckynumbers
     env_file:
       - ./docker.env
