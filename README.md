@@ -86,7 +86,7 @@ dotnet dev-certs https -ep "$env:USERPROFILE\.aspnet\https\webapp2.pfx" -p latoc
 If a certificate already exist, check if it is already trusted:
 
 ```bash
-dotnet dev-certs --check --trust
+dotnet dev-certs https --check --trust
 ```
 
 Update compose file and add variables so that our application can use the certificate (using sample values below):
