@@ -351,3 +351,6 @@ MigrationBackup/
 
 # IntelliJ IDEs
 .idea/
+
+# cred files
+*.pw
