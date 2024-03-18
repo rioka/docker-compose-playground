@@ -263,7 +263,7 @@ This works, but
 
 - For the first option (`file`), `MSSQL_SA_PASSWORD_FILE` is not officially documented (although there's an [issue i Github](https://github.com/microsoft/mssql-docker/issues/672)), so I prefer keep using the "traditional" approach, at least until it is documented.
 
-- For the second option, we still have to define an environment variable, so except than from a security standpoint, it's quite the same.
+- For the second option, we still have to define an environment variable, so except than from a security standpoint, it's quite the same: inspecting the container will show `MSSQL_SA_PASSWORD=/run/secrets/sql_sa_pw` instead of the actual value.
 
  > This is not to say security is not important, but given that this ins intended to be used in development environments, the only advantage you get (the password is not visible as an environment variable in the container) is not worth the additional effort IMHO.
 
