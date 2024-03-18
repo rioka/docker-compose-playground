@@ -191,7 +191,7 @@ When using "default" mode, i.e. not setting `network_mode` explicitly, and then 
   >
   > [...] 
   >
-  > Each container can now look up the service name web or db and get back the appropriate container's IP address. [...]
+  > Each container can now look up the service name, and get back the appropriate container's IP address. [...]
   > 
   > Networked service-to-service communication uses the `CONTAINER_PORT`. When `HOST_PORT` is defined, the service is accessible outside the swarm as well. 
 
