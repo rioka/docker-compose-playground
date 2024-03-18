@@ -138,6 +138,12 @@ There are two versions:
 
 - `compose-hostmode.yaml` sets network mode to `host`: containers do not have their own IP address, and the ports each container binds to are available on the host's IP address. 
 
+  > The host networking driver only works on Linux hosts, and is not supported on Docker Desktop for Mac, Docker Desktop for Windows, or Docker EE for Windows Server.
+
+  [Source](https://docs.docker.com/network/drivers/host/)
+
+  > With Podman, apparently it works in Windows, too.
+
 ## Now so obvious things
 
 - To use hostnames in container-to-container communication, `network_mode` cannot be set to `bridge`.
