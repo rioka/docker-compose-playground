@@ -121,10 +121,11 @@ Update compose file and add variables so that our application can use the certif
 
 ## Using `docker-compose`
 
-> Set environment variable `CERTIFICATE_PASSWORD` (referenced in `docker.env`); for example, in powershell:
+> Set environment variables `CERTIFICATE_PASSWORD` and `MSSQL_SA_PASSWORD` (referenced in `compose*.yaml` and `docker.env`); for example, in powershell:
 > 
 > ```powershell
 > $env:CERTIFICATE_PASSWORD="Some-strong-Password_123"
+> $env:MSSQL_SA_PASSWORD="Sa-strong-Password"
 > ``` 
 
 There are two versions:

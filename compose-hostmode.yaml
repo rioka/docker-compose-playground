@@ -41,5 +41,5 @@ services:
     hostname: sql
     environment:
       ACCEPT_EULA: 'Y'
-      MSSQL_SA_PASSWORD: 'TtprstF68'
+      MSSQL_SA_PASSWORD: '${MSSQL_SA_PASSWORD}'
     image: mcr.microsoft.com/mssql/server:2019-latest
