@@ -6,8 +6,12 @@ services:
     # so that we can use hostnames for container-to-container communication    
     #network_mode: "bridge"
     container_name: forecasts
-    domainname: bitdeas.local # does not work
+    #domainname: bitdeas.local # does not work
     hostname: forecasts
+    networks:
+      bitdeas:
+        aliases:
+          - forecasts.bitdeas.local
     env_file:
       - ./docker.env
     ports:
@@ -25,8 +29,12 @@ services:
   luckynumbers:
     #network_mode: "bridge"
     container_name: luckynumbers
-    domainname: bitdeas.local # does not work
+    #domainname: bitdeas.local # does not work
     hostname: luckynumbers
+    networks:
+      bitdeas:
+        aliases:
+          - luckynumbers.bitdeas.local
     env_file:
       - ./docker.env
     ports:
@@ -44,9 +52,14 @@ services:
   sql:
     container_name: sql
     hostname: sql
+    networks:
+      - bitdeas
     environment:
       ACCEPT_EULA: 'Y'
       MSSQL_SA_PASSWORD: '${MSSQL_SA_PASSWORD}'
     ports:
       - "14330:1433"
     image: mcr.microsoft.com/mssql/server:2019-latest
+
+networks:
+  bitdeas:
