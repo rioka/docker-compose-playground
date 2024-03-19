@@ -140,7 +140,7 @@ There are two versions:
 
   > The host networking driver only works on Linux hosts, and is not supported on Docker Desktop for Mac, Docker Desktop for Windows, or Docker EE for Windows Server.
 
-  [Source](https://docs.docker.com/network/drivers/host/)
+  [Source](https://docs.docker.com/network/drivers/host/), and [this comment in Github](https://github.com/docker/for-win/issues/6736#issuecomment-685789174)
 
   > With Podman, apparently it works in Windows, too.
 
