@@ -351,3 +351,6 @@ MigrationBackup/
 
 # IntelliJ IDEs
 .idea/
+
+# .env overrides
+*.env.override
