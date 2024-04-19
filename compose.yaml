@@ -1,6 +1,13 @@
 version: '3'
 
 services:
+  tools:
+    container_name: tools
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t    
+    image: debian:stable
+    extra_hosts:
+      - "myhost:host-gateway"
   forecasts:
     # using bridge mode, but with custom network, created by docker compose
     # so that we can use hostnames for container-to-container communication    
@@ -19,6 +26,8 @@ services:
     ports:
       - "45678:8080"  # http
       - "44330:4433"  # https
+    extra_hosts:
+      - "myhost:host-gateway"
     volumes:
       - ~/.aspnet/https:/https:ro
     build:
@@ -44,6 +53,8 @@ services:
     ports:
       - "45679:8080"  # http
       - "44331:4433"  # https
+    extra_hosts:
+      - "myhost:host-gateway"
     volumes:
       - ~/.aspnet/https:/https:ro
     build:
