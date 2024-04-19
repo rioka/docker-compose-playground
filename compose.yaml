@@ -14,7 +14,8 @@ services:
           - forecasts.bitdeas.local
     env_file:
       - ./docker.env
-      - ./docker.env.override
+      - path: ./docker.env.override
+        required: false
     ports:
       - "45678:8080"  # http
       - "44330:4433"  # https
@@ -38,7 +39,8 @@ services:
           - luckynumbers.bitdeas.local
     env_file:
       - ./docker.env
-      - ./docker.env.override
+      - path: ./docker.env.override
+        required: false
     ports:
       - "45679:8080"  # http
       - "44331:4433"  # https
