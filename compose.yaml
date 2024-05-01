@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+  
   tools:
     container_name: tools
     stdin_open: true # docker run -i
@@ -8,6 +9,7 @@ services:
     image: debian:stable
     extra_hosts:
       - "myhost:host-gateway"
+  
   forecasts:
     # using bridge mode, but with custom network, created by docker compose
     # so that we can use hostnames for container-to-container communication    
