@@ -9,6 +9,8 @@ services:
     image: debian:stable
     extra_hosts:
       - "myhost:host-gateway"
+    networks:
+      bitdeas:
   
   forecasts:
     # using bridge mode, but with custom network, created by docker compose
