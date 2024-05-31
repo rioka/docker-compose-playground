@@ -11,7 +11,9 @@ services:
       - "myhost:host-gateway"
     networks:
       bitdeas:
-  
+    profiles: 
+      - debug
+
   forecasts:
     # using bridge mode, but with custom network, created by docker compose
     # so that we can use hostnames for container-to-container communication    
