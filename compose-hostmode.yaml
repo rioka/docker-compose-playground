@@ -6,9 +6,12 @@ services:
     container_name: forecasts
     hostname: forecasts
     environment:
-      - "ASPNETCORE_URLS=https://+:44330"
+      - "ASPNETCORE_URLS=https://0.0.0.0:44330;http://0.0.0.0:5023"
     env_file:
       - ./docker-hostmode.env
+    expose:
+      - "5023/tcp"
+      - "44330/tcp"
     volumes:
       - ~/.aspnet/https:/https:ro
     build:
@@ -23,9 +26,17 @@ services:
     container_name: luckynumbers
     hostname: luckynumbers
     environment:
-      - "ASPNETCORE_URLS=https://+:44331"
+      - "ASPNETCORE_URLS=https://0.0.0.0:44331;http://0.0.0.0:5136"
+    # These do not work, because bind to IPv6, but host mode requires IPv4
+    # see https://docs.docker.com/network/drivers/host/#limitations
+    #  - "ASPNETCORE_URLS=https://+:44331"
+    #  - "ASPNETCORE_HTTP_PORTS=5136"
+    #  - "ASPNETCORE_HTTPS_PORTS=44331"
     env_file:
       - ./docker-hostmode.env
+    expose:
+      - "5136/tcp"
+      - "44331/tcp"
     volumes:
       - ~/.aspnet/https:/https:ro
     build:
