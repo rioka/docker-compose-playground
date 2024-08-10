@@ -40,7 +40,7 @@ services:
       context: ./
       dockerfile: ./WeatherForecast/Dockerfile
       args:
-        BUILD_CONFIGURATION: Release
+        BUILD_CONFIGURATION: ${configuration:-Release}
     image: local/forecasts
 
   luckynumbers:
@@ -67,7 +67,7 @@ services:
       context: ./
       dockerfile: ./LuckyNumbers/Dockerfile
       args:
-        BUILD_CONFIGURATION: Release
+        BUILD_CONFIGURATION: ${configuration:-Release}
     image: local/luckynumbers
 
   sql:
@@ -77,7 +77,7 @@ services:
       - bitdeas
     environment:
       ACCEPT_EULA: 'Y'
-      MSSQL_SA_PASSWORD: '${MSSQL_SA_PASSWORD}'
+      MSSQL_SA_PASSWORD: '${MSSQL_SA_PASSWORD:?password is required}'
     ports:
       - "14330:1433"
     image: mcr.microsoft.com/mssql/server:2019-latest
