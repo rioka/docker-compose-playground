@@ -114,7 +114,7 @@ So the process has proved to be effective:
   RUN update-ca-certificates --fresh
   ```
   
-  > Note, `asp_net` folder is not necessary, we can simply copy the certificate to `/usr/local/share/ca-certificates`
+  > Note, `asp_dev` folder is not necessary, we can simply copy the certificate to `/usr/local/share/ca-certificates`
   
 ## How to test
 
@@ -132,7 +132,7 @@ So the process has proved to be effective:
     - `ASPNETCORE_Kestrel__Certificates__Default__Password`
     - `ASPNETCORE_Kestrel__Certificates__Default__Path`
 
-  Recap: use `--network my-cool-netwokr --network-alias ...` using one of the names added to the certificate; also add `-e "ASPNETCORE_Kestrel__Certificates__Default__Password=blah blah"` and `-e "ASPNETCORE_Kestrel__Certificates__Default__Path=/https/new-certificate.pfx"`
+  Recap: use `--network my-cool-network --network-alias ...` using one of the names added to the certificate; also add `-e "ASPNETCORE_Kestrel__Certificates__Default__Password=blah blah"` and `-e "ASPNETCORE_Kestrel__Certificates__Default__Path=/https/new-certificate.pfx"`
   
 - Run a `mcr.microsoft.com/aspnet:8.0` based container, using the custom network
 
