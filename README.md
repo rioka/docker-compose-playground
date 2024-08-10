@@ -144,7 +144,7 @@ There are two versions:
 
   > With Podman, apparently it works in Windows, too.
 
-## Now so obvious things
+## Not so obvious things
 
 - To use hostnames in container-to-container communication, `network_mode` cannot be set to `bridge`.
 - On the other hand, when `network_mode` is set to `bridge`, a container cannot reach the host
