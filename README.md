@@ -138,7 +138,7 @@ There are two versions:
 
 - `compose-hostmode.yaml` sets network mode to `host`: containers do not have their own IP address, and the ports each container binds to are available on the host's IP address. 
 
-  > The host networking driver only works on Linux hosts, and is not supported on Docker Desktop for Mac, Docker Desktop for Windows, or Docker EE for Windows Server.
+  > The "host" networking driver ~~only works on Linux hosts, and is not supported on Docker Desktop for Mac, Docker Desktop for Windows, or Docker EE for Windows Server.~~ is generally available (as of 4.34.2), but requires a subscription in Windows
 
   [Source](https://docs.docker.com/network/drivers/host/), and [this comment in Github](https://github.com/docker/for-win/issues/6736#issuecomment-685789174)
 
@@ -172,6 +172,9 @@ We're experimenting with two different network mode:
 When using "default" mode, i.e. not setting `network_mode` explicitly, and then you inspect the container:
 
 - network mode is set to "bridge" (see `HostConfig:NetworkMode`)
+
+  Better to get information via `docker network list` and `docker network inspect <networkId>`.
+  
 - bridge is not given a name (see `NetworkSettings:Bridge`)
 - a new network is created, named after the project (see entry in `NetworkSettings:Networks`)
 
