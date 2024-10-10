@@ -26,7 +26,10 @@ services:
     container_name: luckynumbers
     hostname: luckynumbers
     environment:
-      - "ASPNETCORE_URLS=https://0.0.0.0:44331;http://0.0.0.0:5136"
+      - "ASPNETCORE_URLS=http://0.0.0.0:5136"
+      - "Kestrel__Endpoints__HttpsFromPem__Url=https://0.0.0.0:44331"
+      - "Kestrel__Endpoints__HttpsFromPem__Certificate__Path=/https/luckynumbers+2.pem"
+      - "Kestrel__Endpoints__HttpsFromPem__Certificate__KeyPath/https/luckynumbers+2-key.pem"
     # These do not work, because bind to IPv6, but host mode requires IPv4
     # see https://docs.docker.com/network/drivers/host/#limitations
     #  - "ASPNETCORE_URLS=https://+:44331"
@@ -38,7 +41,11 @@ services:
       - "5136/tcp"
       - "44331/tcp"
     volumes:
-      - ~/.aspnet/https:/https:ro
+    #  - ~/.aspnet/https:/https:ro
+      - ./certs/rootCA.pem:/usr/local/share/ca-certificates/rootCA.crt
+      - ./bootstrap.sh:/app/bootstrap.sh
+    entrypoint:
+      - /app/bootstrap.sh  
     build:
       context: ./
       dockerfile: ./LuckyNumbers/Dockerfile
