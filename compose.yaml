@@ -1,12 +1,30 @@
 version: '3'
 
 services:
+  
+  tools:
+    container_name: tools
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t    
+    image: debian:stable
+    extra_hosts:
+      - "myhost:host-gateway"
+    networks:
+      bitdeas:
+    profiles: 
+      - debug
+
   forecasts:
     # using bridge mode, but with custom network, created by docker compose
     # so that we can use hostnames for container-to-container communication    
     #network_mode: "bridge"
     container_name: forecasts
+    #domainname: bitdeas.local # does not work
     hostname: forecasts
+    networks:
+      bitdeas:
+        aliases:
+          - forecasts.bitdeas.local
     env_file:
       - ./docker.env
       - path: ./docker.env.override
@@ -14,19 +32,26 @@ services:
     ports:
       - "45678:8080"  # http
       - "44330:4433"  # https
+    extra_hosts:
+      - "myhost:host-gateway"
     volumes:
       - ~/.aspnet/https:/https:ro
     build:
       context: ./
       dockerfile: ./WeatherForecast/Dockerfile
       args:
-        BUILD_CONFIGURATION: Release
+        BUILD_CONFIGURATION: ${configuration:-Release}
     image: local/forecasts
 
   luckynumbers:
     #network_mode: "bridge"
     container_name: luckynumbers
+    #domainname: bitdeas.local # does not work
     hostname: luckynumbers
+    networks:
+      bitdeas:
+        aliases:
+          - luckynumbers.bitdeas.local
     env_file:
       - ./docker.env
       - path: ./docker.env.override
@@ -34,21 +59,28 @@ services:
     ports:
       - "45679:8080"  # http
       - "44331:4433"  # https
+    extra_hosts:
+      - "myhost:host-gateway"
     volumes:
       - ~/.aspnet/https:/https:ro
     build:
       context: ./
       dockerfile: ./LuckyNumbers/Dockerfile
       args:
-        BUILD_CONFIGURATION: Release
+        BUILD_CONFIGURATION: ${configuration:-Release}
     image: local/luckynumbers
 
   sql:
     container_name: sql
     hostname: sql
+    networks:
+      - bitdeas
     environment:
       ACCEPT_EULA: 'Y'
-      MSSQL_SA_PASSWORD: '${MSSQL_SA_PASSWORD}'
+      MSSQL_SA_PASSWORD: '${MSSQL_SA_PASSWORD:?password is required}'
     ports:
       - "14330:1433"
     image: mcr.microsoft.com/mssql/server:2019-latest
+
+networks:
+  bitdeas:
